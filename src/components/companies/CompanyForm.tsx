@@ -56,7 +56,7 @@ export const CompanyForm = ({ company, onSuccess }: CompanyFormProps) => {
         ctc_distribution: formData.ctc_distribution || null,
         roles: formData.roles ? formData.roles.split(",").map((r) => r.trim()) : null,
         people_selected: formData.people_selected ? parseInt(formData.people_selected) : null,
-        registration_deadline: formData.registration_deadline || null,
+  registration_deadline: formData.registration_deadline ? inputISTToOffsetISOString(formData.registration_deadline) : null,
         cgpa_cutoff: formData.cgpa_cutoff ? parseFloat(formData.cgpa_cutoff) : null,
         status: formData.status,
         bond_details: formData.bond_details || null,
