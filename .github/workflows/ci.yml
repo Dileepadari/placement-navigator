@@ -85,9 +85,17 @@ jobs:
       - name: Start Supabase
         run: npx supabase start
 
+      # The function refuses to boot without a signing secret, which is the
+      # point of the guard in context.ts. This one is a throwaway for a stack
+      # that is destroyed at the end of the job.
+      - name: Secrets for the local stack
+        run: |
+          mkdir -p supabase/functions
+          echo "PLACEMENTS_JWT_SECRET=ci-only-not-a-real-secret-0123456789abcdef" > supabase/functions/.env
+
       - name: Serve the edge function
         run: |
-          npx supabase functions serve > functions.log 2>&1 &
+          npx supabase functions serve --env-file supabase/functions/.env > functions.log 2>&1 &
           for i in $(seq 1 60); do
             if curl -fsS http://127.0.0.1:54321/functions/v1/placements/health > /dev/null 2>&1; then
               echo "function healthy after ${i}s"

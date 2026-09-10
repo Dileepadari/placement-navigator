@@ -190,6 +190,7 @@ access goes through the API, authenticated with a token this project issued.
 
 | Variable | Value |
 |---|---|
+| `PLACEMENTS_JWT_SECRET` | `openssl rand -hex 32`. Signs the access tokens this API issues. **Required**: the function now refuses to boot without it, because an empty value used to reach Web Crypto as a zero-length HMAC key and turn every login into an unexplained 500. Rotating it signs everyone out, which is the intended emergency response. |
 | `SELFHOST_JWT_SECRET` | `JWT_SECRET` from `~/supabase-prod/docker/.env` on the storage box. 64 characters; the same value the portfolio project calls `ADMIN_JWT_SECRET`. A wrong one fails silently until an upload: the box answers `401 Unauthorized: Invalid signature` and the API turns that into a 502. Check it without printing it: `printf %s "$SELFHOST_JWT_SECRET" \| sha256sum` should match the box's. |
 | `ORACLE_UPLOAD_BASE_URL` | `https://supabase.dileepadari.dev` |
 | `ORACLE_UPLOAD_PATH` | `/functions/v1/upload` |
@@ -199,6 +200,17 @@ access goes through the API, authenticated with a token this project issued.
 
 `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` are injected into edge functions
 automatically - do not set them yourself.
+
+Serving locally reads none of the above. `supabase functions serve` takes its
+environment from `supabase/functions/.env`, which is gitignored, so a fresh
+checkout needs at least:
+
+```sh
+echo "PLACEMENTS_JWT_SECRET=$(openssl rand -hex 32)" > supabase/functions/.env
+```
+
+Without it the function will not start, and `tests/api` will skip itself because
+nothing answers `/health`. CI writes a throwaway value for the same reason.
 
 ### GitHub Actions secrets
 

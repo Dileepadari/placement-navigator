@@ -39,6 +39,48 @@ including after a `supabase db reset`. I could not reproduce it, so I have not
 claimed to have fixed it and have not papered over it with a retry. If it
 resurfaces in CI, the log will say more than I can.
 
+## What the new CI job caught on its very first run
+
+It failed, which is the best possible outcome for a job whose whole premise is
+that nothing had been checking this.
+
+`POST /auth/signup` returned 500 and every subsequent login returned 401. The
+edge function log said:
+
+```
+DataError: Key length is zero
+  at hmacKey (jwt.ts:25)
+  at signJwt (jwt.ts:37)
+  at issueSession (routes/auth.ts:26)
+```
+
+`PLACEMENTS_JWT_SECRET` was unset. `context.ts` read it as `?? ""`, the empty
+string reached Web Crypto as a zero-length HMAC key, and `importKey` threw from
+inside the sign path. Which means that in a deployment where that secret is
+missing or misnamed, **every account on the site is broken and the only
+symptom is an unexplained 500 on login.** Nothing says which variable, nothing
+says it at startup, and the app looks fine until someone tries to sign in.
+
+Two changes:
+
+- `context.ts` now throws at module load if the secret is empty, naming the
+  variable and both places to set it. The function refuses to boot rather than
+  serving a broken login route. Verified by serving with the variable removed:
+  `/health` returns 500 and the log carries the message, once, in English.
+- The variable was **not in the Edge Function secrets table in DEVDOC**, which is
+  how it went missing in the first place. It is now, along with the fact that a
+  fresh checkout has to write `supabase/functions/.env` before the function will
+  serve locally at all.
+
+CI writes a throwaway secret for its own stack. It is in the workflow in plain
+text on purpose: it signs tokens for a Postgres container that is destroyed
+minutes later, and pretending otherwise by routing it through repository secrets
+would suggest it is worth protecting.
+
+Worth noticing that this was live-fire, not hypothetical. The job I added to stop
+63 tests from silently skipping found a real hole in the deployment story on its
+first execution.
+
 ## The committed `.env` that turned out not to matter
 
 A `.env` was committed in `44b2fdb` and touched again in `5147a74`, and both

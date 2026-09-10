@@ -16,6 +16,24 @@ const SUPABASE_URL = Deno.env.get("SUPABASE_URL") ?? "";
 const SERVICE_ROLE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "";
 export const JWT_SECRET = Deno.env.get("PLACEMENTS_JWT_SECRET") ?? "";
 
+// Fail at boot, not at the first login.
+//
+// An unset secret used to reach Web Crypto as a zero-length HMAC key, which
+// throws `DataError: Key length is zero` deep inside signJwt and surfaces as a
+// bare 500 on /auth/login. Every account looks broken and nothing in the
+// response says why. This says why, once, at startup.
+if (!JWT_SECRET) {
+  throw new Error(
+    "PLACEMENTS_JWT_SECRET is not set. Set it with `supabase secrets set` for a " +
+      "deployed function, or in supabase/functions/.env when serving locally.",
+  );
+}
+if (JWT_SECRET.length < 32) {
+  console.warn(
+    `PLACEMENTS_JWT_SECRET is ${JWT_SECRET.length} characters. HS256 keys should be at least 32.`,
+  );
+}
+
 export const ACCESS_TOKEN_TTL_SECONDS = 60 * 60; // 1 hour
 export const REFRESH_TOKEN_TTL_DAYS = 30;
 
