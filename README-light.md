@@ -1,3 +1,5 @@
+<!-- Generated from README.md by scripts/build-light-readme.mjs. Do not edit by hand. -->
+
 <div align="center">
 
 <picture>
@@ -25,7 +27,7 @@
 
 **Live:** [placements.dileepadari.dev](https://placements.dileepadari.dev) &middot; **[Developer documentation](./DEVDOC.md)** &middot; [Screenshots](#screenshots)
 
-<p><b>Dark mode</b> &middot; <a href="./README-light.md">View this page in light mode</a></p>
+<p><b>Light mode</b> &middot; <a href="./README.md">View this page in dark mode</a></p>
 
 </div>
 
@@ -70,35 +72,35 @@ a fortnight.
 ## Screenshots
 
 Real 1440x1180 viewport renders against a local Supabase stack with the seed data
-from `supabase/seed.sql`. This page shows **dark mode**; the same gallery in
-light mode is at **[README-light.md](./README-light.md)**.
+from `supabase/seed.sql`. This page shows **light mode**; the same gallery in
+dark mode is at **[README.md](./README.md)**.
 
 <table>
   <tr>
     <td width="33%" valign="top">
-      <img src="./docs/screenshots/dark/home.png" alt="Home page with the season summary, registration windows and recently wrapped drives" loading="lazy">
+      <img src="./docs/screenshots/light/home.png" alt="Home page with the season summary, registration windows and recently wrapped drives" loading="lazy">
       <p align="center"><b>Home</b><br><sub>What is open now, what closes this week, what just finished.</sub></p>
     </td>
     <td width="33%" valign="top">
-      <img src="./docs/screenshots/dark/companies.png" alt="The company table with phase, registration countdown, CGPA cutoff, CTC and dates" loading="lazy">
+      <img src="./docs/screenshots/light/companies.png" alt="The company table with phase, registration countdown, CGPA cutoff, CTC and dates" loading="lazy">
       <p align="center"><b>Companies</b><br><sub>Every drive in one table, sortable, filterable, exportable.</sub></p>
     </td>
     <td width="33%" valign="top">
-      <img src="./docs/screenshots/dark/company.png" alt="A company page showing a student's interview experience, tips and the schedule" loading="lazy">
+      <img src="./docs/screenshots/light/company.png" alt="A company page showing a student's interview experience, tips and the schedule" loading="lazy">
       <p align="center"><b>A company</b><br><sub>The write-up from someone who sat it, and the season history.</sub></p>
     </td>
   </tr>
   <tr>
     <td width="33%" valign="top">
-      <img src="./docs/screenshots/dark/analytics.png" alt="Analytics with CTC distribution, phase breakdown, sought roles and cutoff against package" loading="lazy">
+      <img src="./docs/screenshots/light/analytics.png" alt="Analytics with CTC distribution, phase breakdown, sought roles and cutoff against package" loading="lazy">
       <p align="center"><b>Analytics</b><br><sub>The season in numbers, compared against the one before.</sub></p>
     </td>
     <td width="33%" valign="top">
-      <img src="./docs/screenshots/dark/calendar.png" alt="Calendar month view with every deadline, test and interview, and an ics download" loading="lazy">
+      <img src="./docs/screenshots/light/calendar.png" alt="Calendar month view with every deadline, test and interview, and an ics download" loading="lazy">
       <p align="center"><b>Calendar</b><br><sub>Every deadline and slot, exportable to your own calendar.</sub></p>
     </td>
     <td width="33%" valign="top">
-      <img src="./docs/screenshots/dark/profile.png" alt="The profile page with display name, private file storage and calendar subscription" loading="lazy">
+      <img src="./docs/screenshots/light/profile.png" alt="The profile page with display name, private file storage and calendar subscription" loading="lazy">
       <p align="center"><b>Profile</b><br><sub>Your name on contributions, your files, your calendar feed.</sub></p>
     </td>
   </tr>
@@ -112,15 +114,15 @@ render at that exact viewport, not a scaled-down desktop shot.
 <table>
   <tr>
     <td width="28%" valign="top">
-      <img src="./docs/screenshots/responsive/dark/phone-home.png" alt="Home page on a 390x844 phone viewport" loading="lazy">
+      <img src="./docs/screenshots/responsive/light/phone-home.png" alt="Home page on a 390x844 phone viewport" loading="lazy">
       <p align="center"><b>Phone, 390x844</b><br><sub>The season summary stacks; the ticker keeps scrolling.</sub></p>
     </td>
     <td width="28%" valign="top">
-      <img src="./docs/screenshots/responsive/dark/phone-companies.png" alt="The company list as cards on a 390x844 phone viewport" loading="lazy">
+      <img src="./docs/screenshots/responsive/light/phone-companies.png" alt="The company list as cards on a 390x844 phone viewport" loading="lazy">
       <p align="center"><b>Phone, companies</b><br><sub>The table becomes cards rather than scrolling sideways.</sub></p>
     </td>
     <td width="44%" valign="top">
-      <img src="./docs/screenshots/responsive/dark/tablet-analytics.png" alt="Analytics on an 820x1180 tablet viewport" loading="lazy">
+      <img src="./docs/screenshots/responsive/light/tablet-analytics.png" alt="Analytics on an 820x1180 tablet viewport" loading="lazy">
       <p align="center"><b>Tablet, 820x1180</b><br><sub>Stat tiles go two-up; every chart keeps its axis labels.</sub></p>
     </td>
   </tr>

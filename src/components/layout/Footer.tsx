@@ -1,3 +1,11 @@
+/**
+ * Site footer: navigation columns, the contributed-data disclaimer, and
+ * attribution.
+ *
+ * The disclaimer is here as well as on the company pages deliberately. CTC
+ * figures and experiences come from students, not the placement office, and
+ * that has to be readable from any page someone might screenshot.
+ */
 import { Link } from "react-router-dom";
 import { Github } from "lucide-react";
 

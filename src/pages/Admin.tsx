@@ -1,3 +1,10 @@
+/**
+ * Admin surface: users and roles, plus the moderation, seasons, settings and
+ * audit panels as tabs.
+ *
+ * Guarded by `ProtectedRoute requireAdmin`, but that is only what stops the page
+ * mounting. Every action here is re-authorized by the edge function.
+ */
 import { useState } from "react";
 import { Building2, FileText, MessageSquareText, Search, Shield, Trash, Users } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";

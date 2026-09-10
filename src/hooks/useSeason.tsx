@@ -1,3 +1,11 @@
+/**
+ * The selected placement season, which scopes almost every query in the app.
+ *
+ * Resolution order is `?season=` in the URL, then the last choice in
+ * localStorage, then whichever season is marked current. The URL comes first so
+ * that a link to a past year is shareable and lands the recipient on the same
+ * data the sender was looking at.
+ */
 import {
   createContext,
   useCallback,

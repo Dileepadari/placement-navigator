@@ -1,3 +1,11 @@
+/**
+ * Providers and the router.
+ *
+ * The nesting is not arbitrary. `SeasonProvider` reads and writes `?season=`, so
+ * it has to sit inside the router; both it and `AuthProvider` issue queries, so
+ * they sit inside `QueryClientProvider`; and `ErrorBoundary` wraps the lot so a
+ * throw inside a provider is still caught rather than blanking the page.
+ */
 import { Suspense, lazy } from "react";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";

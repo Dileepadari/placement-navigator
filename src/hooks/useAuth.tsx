@@ -1,3 +1,10 @@
+/**
+ * The signed-in user, their role, and the sign in / sign up / sign out calls.
+ *
+ * `isAdmin`, `isEditor` and `canEdit` are for UI affordances only. Hiding a
+ * button is not authorization; the edge function re-checks every one of these
+ * on the request itself.
+ */
 import {
   createContext,
   useCallback,
