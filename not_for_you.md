@@ -34,10 +34,17 @@ test that always skips is a file, not a test.** The signal it gives is
 indistinguishable from the signal a deleted test gives, except that it takes up
 space and makes the count look healthy.
 
-One test failed on the very first local run and has passed every run since,
-including after a `supabase db reset`. I could not reproduce it, so I have not
-claimed to have fixed it and have not papered over it with a retry. If it
-resurfaces in CI, the log will say more than I can.
+One local run has failed twice now, once at the start of this work and once
+again later the same day, and I have not managed to capture which test either
+time - by the time I looked, the next run was green, and about twenty consecutive
+runs since have all passed 176/176, including after a `supabase db reset`. So
+there is something intermittent in here at roughly a one-in-ten rate and I do not
+know what it is.
+
+I have not papered over it with a retry, and I have not claimed to have fixed it.
+Writing it down is the honest version: the `api` job now runs these on every push,
+so the next occurrence will be in a CI log with a name attached, which is more
+than I can produce by guessing.
 
 ## What the new CI job caught on its very first run
 
