@@ -206,11 +206,18 @@ environment from `supabase/functions/.env`, which is gitignored, so a fresh
 checkout needs at least:
 
 ```sh
-echo "PLACEMENTS_JWT_SECRET=$(openssl rand -hex 32)" > supabase/functions/.env
+{
+  echo "PLACEMENTS_JWT_SECRET=$(openssl rand -hex 32)"
+  echo "SELFHOST_JWT_SECRET=$(openssl rand -hex 32)"
+} > supabase/functions/.env
 ```
 
-Without it the function will not start, and `tests/api` will skip itself because
-nothing answers `/health`. CI writes a throwaway value for the same reason.
+Without `PLACEMENTS_JWT_SECRET` the function will not start at all, and
+`tests/api` will skip itself because nothing answers `/health`. Without
+`SELFHOST_JWT_SECRET`, `handleUpload` returns `STORAGE_NOT_CONFIGURED` before any
+other check, so every upload path 500s. Neither local value needs to be real:
+uploads that would actually reach the storage box are verified by hand against
+production, not from a laptop. CI writes throwaways for both.
 
 ### GitHub Actions secrets
 

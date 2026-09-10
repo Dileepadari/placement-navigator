@@ -85,13 +85,23 @@ jobs:
       - name: Start Supabase
         run: npx supabase start
 
-      # The function refuses to boot without a signing secret, which is the
-      # point of the guard in context.ts. This one is a throwaway for a stack
-      # that is destroyed at the end of the job.
+      # Two secrets, both throwaway, for a stack that is destroyed minutes later.
+      #
+      # PLACEMENTS_JWT_SECRET: the function refuses to boot without it, which is
+      # the point of the guard in context.ts.
+      #
+      # SELFHOST_JWT_SECRET: handleUpload returns STORAGE_NOT_CONFIGURED before
+      # any other check when it is missing, so without it every upload test gets
+      # a 500 instead of the rejection it is asserting. Nothing here ever reaches
+      # the storage box: every assertion in tests/api/uploads.test.ts is on a
+      # check that returns before the outbound request.
       - name: Secrets for the local stack
         run: |
           mkdir -p supabase/functions
-          echo "PLACEMENTS_JWT_SECRET=ci-only-not-a-real-secret-0123456789abcdef" > supabase/functions/.env
+          cat > supabase/functions/.env <<'ENV'
+          PLACEMENTS_JWT_SECRET=ci-only-not-a-real-secret-0123456789abcdef
+          SELFHOST_JWT_SECRET=ci-only-never-reaches-a-storage-box-0123456789
+          ENV
 
       - name: Serve the edge function
         run: |

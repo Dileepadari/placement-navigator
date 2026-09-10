@@ -24,6 +24,7 @@ const COLUMNS = [
       { to: "/me", label: "Profile" },
       { to: "/me/applications", label: "Applications" },
       { to: "/me/bookmarks", label: "Saved companies" },
+      { to: "/me/contributions", label: "Your contributions" },
     ],
   },
 ];
